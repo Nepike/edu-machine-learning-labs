@@ -1,8 +1,8 @@
 # Machine learning course labs — MIPT
 
-Eight lab assignments from the machine learning course at MIPT, autumn 2025, plus a fuzzy-logic
-control exercise. The set runs from classical methods on generated data (regression,
-classification, clustering) to neural networks in PyTorch (CNN, autoencoder, transformer, GAN).
+Eight lab assignments from the machine learning course at MIPT, autumn 2025. The set runs from
+classical methods on generated data (regression, classification, clustering) to neural networks in
+PyTorch (CNN, autoencoder, transformer, GAN).
 
 Each lab is one self-contained script. Assignments were handed out in numbered variants; where a
 variant was assigned, it is recorded in the docstring at the top of the file. Comments and console
@@ -18,7 +18,6 @@ output are in Russian.
 | 6 | [`lab6_autoencoder.py`](lab6_autoencoder.py) | Autoencoder on CIFAR-10: latent size and latent-space interpolation | PyTorch |
 | 7 | [`lab7_transformer.py`](lab7_transformer.py) | Character-level transformer language model on WikiText-2 | PyTorch |
 | 8 | [`lab8_gan.py`](lab8_gan.py) | GAN generating points on a sphere | PyTorch |
-| — | [`fuzzy_pendulum.py`](fuzzy_pendulum.py) | Fuzzy controller stabilising an inverted pendulum with a control delay | scikit-fuzzy |
 
 ---
 
@@ -150,13 +149,6 @@ the geometry. The discriminator, in contrast, sees raw 3-D coordinates.
 
 ![Losses](plots/lab8_losses.png)
 
-## Fuzzy controller
-
-Not part of the numbered series. An inverted pendulum is simulated with an explicit control delay
-(0.3 s at a 0.01 s step, i.e. the regulator acts on a state 30 steps old), and a Mamdani fuzzy
-controller built with scikit-fuzzy holds it upright: angle and angular velocity are fuzzified into
-three terms each, and two rules map them to the applied torque.
-
 ---
 
 ## Layout
@@ -164,7 +156,6 @@ three terms each, and two rules map them to the applied torque.
 ```
 lab1_regression.py  …  lab8_gan.py   solutions, one file per lab
 kernel_smoothing.py                  Nadaraya–Watson estimator used by lab 1
-fuzzy_pendulum.py                    fuzzy control exercise
 course-examples/                     example scripts handed out with the course
 plots/                               figures produced by the labs
 results/                             console output of labs 4 and 5

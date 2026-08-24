@@ -9,6 +9,3 @@ tqdm==4.67.1
 # см. https://pytorch.org/get-started/locally/ — лабораторные 5-8 гонялись на cu121
 torch==2.5.1
 torchvision==0.20.1
-
-# только для fuzzy_pendulum.py
-scikit-fuzzy
