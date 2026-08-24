@@ -1,7 +1,6 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-import skfuzzy as fuzz
 import skfuzzy.control as ctrl
 
 
@@ -184,4 +183,5 @@ def model():
 		curr_t += dT
 
 
-model()
+if __name__ == '__main__':
+	model()

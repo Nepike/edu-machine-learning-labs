@@ -22,7 +22,7 @@ import numpy
 import sklearn.linear_model
 import sklearn.kernel_ridge
 import matplotlib.pyplot as plt
-from my import MyGaussKernelSmoothing
+from kernel_smoothing import MyGaussKernelSmoothing
 
 
 def generate_samples(samples_num: int):

@@ -5,7 +5,6 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader, Subset
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
 
 
 def filter_classes(dataset, class1=0, class2=1):

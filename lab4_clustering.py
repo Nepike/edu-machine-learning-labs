@@ -4,12 +4,10 @@
 """
 
 import numpy as np
-from sklearn.cluster import KMeans, DBSCAN
-from sklearn.metrics import davies_bouldin_score, mutual_info_score, adjusted_rand_score
+from sklearn.cluster import KMeans
+from sklearn.metrics import davies_bouldin_score, mutual_info_score
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 
 def generate_points(n_samples=200, point_type=1):
