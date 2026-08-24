@@ -1,3 +1,4 @@
+import argparse
 import os
 from datetime import datetime
 from pathlib import Path
@@ -208,15 +209,23 @@ class TransformerLM(nn.Module):
 
 
 class TextDataset(Dataset):
-    def __init__(self, text, seq_length=128):
+    def __init__(self, text, seq_length=128, vocab=None):
         """
         text: исходный текст
         seq_length: длина последовательности для обучения
+        vocab: алфавит обучающей выборки. Для валидации его нужно передавать явно,
+               иначе символ получит другой индекс, чем при обучении, и loss
+               посчитается по другому отображению символ -> индекс
         """
+        if vocab is None:
+            self.chars = sorted(list(set(text)))
+        else:
+            self.chars = list(vocab)
+            known = set(self.chars)
+            text = ''.join(ch for ch in text if ch in known)
+
         self.text = text
         self.seq_length = seq_length
-
-        self.chars = sorted(list(set(text)))
         self.vocab_size = len(self.chars)
 
         self.char_to_idx = {ch: i for i, ch in enumerate(self.chars)}
@@ -398,6 +407,10 @@ def load_checkpoint(checkpoint_path, model, optimizer=None, device='cpu'):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Обучение символьной языковой модели на wikitext-2')
+    parser.add_argument('--epochs', type=int, default=20, help='число эпох (по умолчанию 20)')
+    args = parser.parse_args()
+
     if torch.cuda.is_available():
         # Проверяем, есть ли CUDA и достаточная память
         device = torch.device('cuda')
@@ -414,15 +427,15 @@ if __name__ == '__main__':
     PIN_MEMORY = True if device.type == 'cuda' else False
     CHECKPOINT_DIR = './models'
 
-    train_text = load_text_data('./wikitext-2/train.txt')
+    train_text = load_text_data('./data/wikitext-2/train.txt')
     train_text = train_text[:len(train_text)//2]
 
     train_dataset = TextDataset(train_text, seq_length=128)
     vocab_size = train_dataset.vocab_size
 
-    val_text = load_text_data('./wikitext-2/test.txt')
+    val_text = load_text_data('./data/wikitext-2/test.txt')
     #val_text = val_text[:len(val_text)//320]
-    val_dataset = TextDataset(val_text, seq_length=128)
+    val_dataset = TextDataset(val_text, seq_length=128, vocab=train_dataset.chars)
 
     train_loader = DataLoader(
         train_dataset,
@@ -465,7 +478,7 @@ if __name__ == '__main__':
         weight_decay=0.01
     )
 
-    num_epochs = 0
+    num_epochs = args.epochs
     start_epoch = 0
     best_val_loss = float('inf')
 

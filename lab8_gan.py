@@ -1,9 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 
 def generate_points(n, R=1.0):
